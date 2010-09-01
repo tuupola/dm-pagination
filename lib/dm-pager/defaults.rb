@@ -11,7 +11,8 @@ module DataMapper
       :first_text    => 'First',
       :last_text     => 'Last',
       :more_text     => '...',
-      :page_param    => :page
+      :page_param    => :page,
+      :total         => 0
     }
 
     ##

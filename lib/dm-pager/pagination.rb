@@ -37,6 +37,7 @@ module DataMapper
       options.delete page_param
       page = 1 unless (page = page.to_i) && page > 1
       per_page    = pager_option(:per_page, options).to_i
+      total       = pager_option(:total, options).to_i
       query = options.dup
       collection = new_collection scoped_query(options = {
         :limit => per_page,
@@ -44,7 +45,8 @@ module DataMapper
         :order => [:id.desc]
       }.merge(query))
       query.delete :order
-      options.merge! :total => count(query), page_param => page, :page_param => page_param
+      total = count(query) if 0 == total
+      options.merge! :total => total, page_param => page, :page_param => page_param
       collection.pager = DataMapper::Pager.new options
       collection
     end
